@@ -1,28 +1,30 @@
 <div class="login-wrapper">
     <mat-card class="login-card">
         <mat-card-title class="card-title">Login</mat-card-title>
-        <form>
+        <form [formGroup]="login" (ngSubmit)="loginUser()">
             <mat-card-content class="card-content">
-                <mat-form-field class="form-field input-full-width">
+                <mat-form-field class="form-field input-full-width" appearance="outline">
                     <mat-label>Select Role</mat-label>
-                    <mat-select>
-                        <!-- <mat-option *ngFor="let food of foods" [value]="food.value"> -->
+                    <mat-select name="usertype" formControlName="usertype">
                         <mat-option value="operator">Operator</mat-option>
                         <mat-option value="doctor">Doctor</mat-option>
                         <mat-option value="patient">Patient</mat-option>
                     </mat-select>
+                    <mat-error *ngIf="login.controls['usertype'].invalid">{{getUsertypeErrorMessage()}}</mat-error>
                 </mat-form-field>
-                <mat-form-field class="form-field input-full-width">
+                <mat-form-field class="form-field input-full-width" appearance="outline">
                     <mat-label>Username</mat-label>
-                    <input type="text" matInput>
+                    <input type="text" name="username" formControlName="username" matInput>
+                    <mat-error *ngIf="login.controls['username'].invalid">{{getUsernameErrorMessage()}}</mat-error>
                 </mat-form-field>
-                <mat-form-field class="form-field input-full-width">
+                <mat-form-field class="form-field input-full-width" appearance="outline">
                     <mat-label>Password</mat-label>
-                    <input type="password" matInput>
+                    <input type="password" name="password" formControlName="password" matInput>
+                    <mat-error *ngIf="login.controls['password'].invalid">{{getPasswordErrorMessage()}}</mat-error>
                 </mat-form-field>
             </mat-card-content>
             <mat-card-actions class="card-actions">
-                <button class="mat-btn login-btn" mat-raised-button color="primary">Login</button>
+                <button [disabled]="login.invalid" class="mat-btn login-btn" mat-raised-button color="accent">Login</button>
                 <a class="mat-btn" mat-button href="/">Forgot Password?</a>
             </mat-card-actions>
             <mat-card-footer class="card-footer">

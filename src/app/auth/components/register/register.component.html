@@ -1,32 +1,35 @@
 <div class="signup-wrapper">
     <mat-card class="signup-card">
         <mat-card-title class="card-title">Register</mat-card-title>
-        <form>
+        <form [formGroup]="register" (ngSubmit)="registerUser()">
             <mat-card-content class="card-content">
-                <mat-form-field class="form-field input-full-width">
+                <mat-form-field class="form-field input-full-width" appearance="outline">
                     <mat-label>Select Role</mat-label>
-                    <mat-select name="usertype" [(ngModel)]="registerUserData.usertype">
-                      <!-- <mat-option *ngFor="let food of foods" [value]="food.value"> -->
+                    <mat-select name="usertype" formControlName="usertype">
                       <mat-option value="operator">Operator</mat-option>
                       <mat-option value="doctor">Doctor</mat-option>
                       <mat-option value="patient">Patient</mat-option>
                     </mat-select>
+                    <mat-error *ngIf="register.controls['usertype'].invalid">{{getUsertypeErrorMessage()}}</mat-error>
                 </mat-form-field>
-                <mat-form-field class="form-field input-full-width">
+                <mat-form-field class="form-field input-full-width" appearance="outline">
                     <mat-label>Username</mat-label>
-                    <input type="text" name="username" [(ngModel)]="registerUserData.username" matInput>
+                    <input type="text" name="username" formControlName="username" matInput>
+                    <mat-error *ngIf="register.controls['username'].invalid">{{getUsernameErrorMessage()}}</mat-error>
                 </mat-form-field>
-                <mat-form-field class="form-field input-full-width">
+                <mat-form-field class="form-field input-full-width" appearance="outline">
                     <mat-label>Email</mat-label>
-                    <input type="email" name="email" [(ngModel)]="registerUserData.email" matInput>
+                    <input type="email" name="email" formControlName="email" matInput>
+                    <mat-error *ngIf="register.controls['email'].invalid">{{getEmailErrorMessage()}}</mat-error>
                 </mat-form-field>
-                <mat-form-field class="form-field input-full-width">
+                <mat-form-field class="form-field input-full-width" appearance="outline">
                     <mat-label>Password</mat-label>
-                    <input type="password" name="password" [(ngModel)]="registerUserData.password" matInput>
+                    <input type="password" name="password" formControlName="password" matInput>
+                    <mat-error *ngIf="register.controls['password'].invalid">{{getPasswordErrorMessage()}}</mat-error>
                 </mat-form-field>
             </mat-card-content>
             <mat-card-actions class="card-actions">
-                <button class="mat-btn register-btn" mat-raised-button color="primary" (click)="registerUser()">Register</button>
+                <button [disabled]="register.invalid" class="mat-btn register-btn" mat-raised-button color="accent">Register</button>
                 <a class="mat-btn" mat-button href="/">Forgot Password?</a>
             </mat-card-actions>
             <mat-card-footer class="card-footer">

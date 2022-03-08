@@ -9,7 +9,7 @@ router.post('/register', async (req, res) => {
     var result = registerValidation(req.body);
     if (result.error)
     {
-        res.status(400).send(result.error.details[0].message);
+        res.status(400).json({ error: result.error.details[0].message });
         return;
     }
 
@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
     result = await User.findOne({ email: req.body.email });
     if (result)
     {
-        res.status(400).send('Email already exists.');
+        res.status(400).json({ error: 'Email already exists' });
         return;
     }
 
@@ -34,8 +34,9 @@ router.post('/register', async (req, res) => {
         });
         const result = await user.save();
         console.log(result);
-        res.status(201).json(result);
-    } catch(err) {
+        // res.status(201).json(result);
+        res.status(201).json({ success: 'Registered' });
+    } catch (err) {
         console.log(err);
     }
 });
@@ -53,7 +54,7 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({ username: req.body.username });
     if (!user)
     {
-        res.status(400).send('Invalid username.');
+        res.status(400).json({ error: 'Invalid username' });
         return;
     }
     
@@ -64,15 +65,15 @@ router.post('/login', async (req, res) => {
     //     return;
     // }
 
-    const pass = bcrypt.compare(req.body.password, user.password);
+    const pass = await bcrypt.compare(req.body.password, user.password);
     if (!pass)
     {
-        res.status(400).send('Invalid password.');
+        res.status(400).json({ error: 'Invalid password' });
         return;
     }
 
     // If user details are correct
-    res.status(200).send('Logged In');
+    res.status(200).json({ success: 'Logged In' });
 });
 
 module.exports = router;
