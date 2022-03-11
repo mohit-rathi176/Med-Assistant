@@ -78,3 +78,17 @@
 .login-wrapper .login-card .login-btn {
     width: 100px;
 }
+
+.login-wrapper .login-card .error-alert {
+    margin-bottom: 1rem;
+    padding: .5rem;
+    background: rgb(255, 230, 230);
+    color: red;
+    border-left: 5px solid red;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.login-wrapper .login-card .error-alert i {
+    margin: 0 .25rem;
+}

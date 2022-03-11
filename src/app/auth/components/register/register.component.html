@@ -1,7 +1,15 @@
 <div class="signup-wrapper">
     <mat-card class="signup-card">
         <mat-card-title class="card-title">Register</mat-card-title>
-        <form [formGroup]="register" (ngSubmit)="registerUser()">
+        <form [formGroup]="register">
+            <div *ngIf="errorAlert" class="error-alert">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                {{ errorAlert }}
+            </div>
+            <div *ngIf="successAlert" class="success-alert">
+                <i class="fa-solid fa-circle-check"></i>
+                {{ successAlert }}
+            </div>
             <mat-card-content class="card-content">
                 <mat-form-field class="form-field input-full-width" appearance="outline">
                     <mat-label>Select Role</mat-label>
@@ -27,14 +35,41 @@
                     <input type="password" name="password" formControlName="password" matInput>
                     <mat-error *ngIf="register.controls['password'].invalid">{{getPasswordErrorMessage()}}</mat-error>
                 </mat-form-field>
+                <div *ngIf="sentotp" class="otp-container">
+                    <div class="otp-header">
+                        <div class="otp-title">
+                            Enter OTP *
+                        </div>
+                        <div class="otp-subtitle">
+                            An OTP has been sent to your Email ID <strong>{{register.controls['email'].value}}</strong>
+                        </div>
+                        <div class="otp-info">
+                            The OTP is valid for <strong>3</strong> minutes
+                        </div>
+                    </div>
+                    <mat-form-field class="form-field " appearance="outline">
+                        <input type="text" #otp1 name="otp1" formControlName="otp1" maxlength="1" (keyup)="move($event, '', otp1, otp2)" required matInput>
+                    </mat-form-field>
+                    <mat-form-field class="form-field " appearance="outline">
+                        <input type="text" #otp2 name="otp2" formControlName="otp2" maxlength="1" (keyup)="move($event, otp1, otp2, otp3)" required matInput>
+                    </mat-form-field>
+                    <mat-form-field class="form-field " appearance="outline">
+                        <input type="text" #otp3 name="otp3" formControlName="otp3" maxlength="1" (keyup)="move($event, otp2, otp3, otp4)" required matInput>
+                    </mat-form-field>
+                    <mat-form-field class="form-field " appearance="outline">
+                        <input type="text" #otp4 name="otp4" formControlName="otp4" maxlength="1" (keyup)="move($event, otp3, otp4, '')" required matInput>
+                    </mat-form-field>
+                </div>
             </mat-card-content>
             <mat-card-actions class="card-actions">
-                <button [disabled]="register.invalid" class="mat-btn register-btn" mat-raised-button color="accent">Register</button>
-                <a class="mat-btn" mat-button href="/">Forgot Password?</a>
+                <button *ngIf="!sentotp" [disabled]="register.invalid" class="mat-btn register-btn" mat-raised-button color="accent" (click)="verifyUserEmail()">Get OTP</button>
+                <button *ngIf="sentotp" [disabled]="register.invalid" class="mat-btn register-btn" mat-raised-button color="accent" (click)="registerNewUser()">Register</button>
+                <!-- <a class="mat-btn" mat-button href="/">Forgot Password?</a> -->
+                <a *ngIf="!sentotp" class="mat-btn-stroked" mat-stroked-button color="accent" routerLink="/auth/login">Have an account? Sign In</a>
+                <button *ngIf="sentotp" class="mat-btn-stroked" mat-stroked-button color="accent" (click)="reVerifyUserEmail()">Resend OTP</button>
             </mat-card-actions>
-            <mat-card-footer class="card-footer">
-                <a class="mat-btn" mat-button routerLink="/auth/login">Have an account? Log In</a>
-            </mat-card-footer>
+            <!-- <mat-card-footer class="card-footer">
+            </mat-card-footer> -->
         </form>
     </mat-card>
 </div>

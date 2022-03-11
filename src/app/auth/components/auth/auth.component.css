@@ -4,7 +4,7 @@
 
 .auth-wrapper .img-wrapper {
     height: 100vh;
-    width: 60vw;
+    width: 50vw;
     background: url('../../../../assets/bg.png');
     background-repeat: no-repeat;
     background-size: cover;
@@ -14,7 +14,7 @@
 
 .auth-wrapper .form-wrapper {
     height: 100vh;
-    width: 40vw;
+    width: 50vw;
     display: flex;
     justify-content: center;
     align-items: center;

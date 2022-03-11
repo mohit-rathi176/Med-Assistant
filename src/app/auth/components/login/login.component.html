@@ -2,6 +2,10 @@
     <mat-card class="login-card">
         <mat-card-title class="card-title">Login</mat-card-title>
         <form [formGroup]="login" (ngSubmit)="loginUser()">
+            <div *ngIf="errorAlert" class="error-alert">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                {{ errorAlert }}
+            </div>
             <mat-card-content class="card-content">
                 <mat-form-field class="form-field input-full-width" appearance="outline">
                     <mat-label>Select Role</mat-label>

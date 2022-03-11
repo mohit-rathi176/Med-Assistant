@@ -13,6 +13,15 @@ export class AuthService {
   private baseUrl = environment.baseUrl;
   constructor(private http: HttpClient) { }
 
+  verifyUser(user: User): Observable<User> {
+    return this.http.post<User>(`${this.baseUrl}/user/verification`, user)
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          return throwError(() => err.error.error);
+        })
+      );
+  }
+
   registerUser(user: User): Observable<User> {
     return this.http.post<User>(`${this.baseUrl}/user/register`, user)
       .pipe(

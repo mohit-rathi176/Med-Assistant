@@ -11,6 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 
 export class LoginComponent implements OnInit {
 
+  errorAlert: any = null;
+
   login = new FormGroup({
     usertype: new FormControl('', Validators.required),
     username: new FormControl('', Validators.required),
@@ -53,11 +55,16 @@ export class LoginComponent implements OnInit {
   loginUser = () => {
     this.auth.loginUser(this.login.value).subscribe(
       res => {
-        console.log(res)
-        this.router.navigate(['doctor'])
+        console.log(res);
+        this.router.navigate(['doctor']);
       },
       err => {
-        console.log(err)
+        // console.log(err);
+        this.errorAlert = err;
+        setTimeout(() => {
+          this.errorAlert = null;
+        }, 5 * 1000);
+        // this.notifierService.showNotification(err, 'OK');
       }
     );
   }

@@ -14,7 +14,7 @@
 .signup-wrapper .signup-card {
     margin: 0;
     padding: 0;
-    width: 300px;
+    /* width: 70%; */
     overflow: hidden;
 }
 
@@ -34,6 +34,9 @@
 .signup-wrapper .signup-card .card-content {
     margin: 0;
     padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
 }
 
 .signup-wrapper .signup-card .form-field {
@@ -49,17 +52,20 @@
 .signup-wrapper .signup-card .card-actions {
     margin: 0;
     padding: 0;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+    /* display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; */
     margin-bottom: 1.5rem;
 }
 
-.signup-wrapper .signup-card .card-actions a {
+/* .signup-wrapper .signup-card .card-actions a {
     padding: 0 .5rem;
-}
+} */
 
-.signup-wrapper .signup-card .card-footer {
+/* .signup-wrapper .signup-card .card-footer {
     margin: 0;
     padding: 0;
     text-align: center;
@@ -67,13 +73,85 @@
 
 .signup-wrapper .signup-card .card-footer a {
     width: 100%;
-}
+} */
 
 .signup-wrapper .signup-card .mat-btn {
     margin: 0;
     padding: 0;
 }
 
-.signup-wrapper .signup-card .register-btn {
+.signup-wrapper .signup-card .mat-btn-stroked {
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ff4081;
+}
+
+/* .signup-wrapper .signup-card .register-btn {
     width: 100px;
+} */
+
+.signup-wrapper .signup-card .otp-container {
+    grid-column: 1 / span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 2rem;
+    row-gap: .25rem;
+    justify-content: space-between;
+}
+
+.signup-wrapper .signup-card .otp-container .otp-header {
+    grid-column: 1 / span 4;
+}
+
+.signup-wrapper .signup-card .otp-container .otp-title {
+    color: #545454;
+    font-size: 15px;
+    margin-bottom: .25rem;
+}
+
+.signup-wrapper .signup-card .otp-container .otp-subtitle {
+    color: #727272;
+    font-size: 12px;
+}
+
+.signup-wrapper .signup-card .otp-container .otp-info {
+    color: #727272;
+    font-size: 12px;
+}
+
+.signup-wrapper .signup-card .otp-container .form-field {
+    min-width: 0px;
+    max-width: 84px;
+}
+
+.signup-wrapper .signup-card .otp-container .form-field input {
+    text-align: center;
+}
+
+.signup-wrapper .signup-card .error-alert {
+    margin-bottom: 1rem;
+    padding: .5rem;
+    background: rgb(255, 230, 230);
+    color: red;
+    border-left: 5px solid red;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.signup-wrapper .signup-card .error-alert i {
+    margin: 0 .25rem;
+}
+
+.signup-wrapper .signup-card .success-alert {
+    margin-bottom: 1rem;
+    padding: .5rem;
+    background: rgb(230, 255, 230);
+    color: green;
+    border-left: 5px solid green;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.signup-wrapper .signup-card .success-alert i {
+    margin: 0 .25rem;
 }

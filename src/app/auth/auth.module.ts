@@ -11,6 +11,7 @@ import { AuthComponent } from './components/auth/auth.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MatModule } from '../mat/mat.module';
+import { NotificationModule } from '../notification/notification.module';
 import { AuthService } from '../services/auth.service';
 
 @NgModule({
@@ -25,6 +26,7 @@ import { AuthService } from '../services/auth.service';
     HttpClientModule,
     CommonModule,
     MatModule,
+    NotificationModule,
     AuthRoutingModule
   ],
   providers: [
