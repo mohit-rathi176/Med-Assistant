@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DoctorComponent } from './components/doctor/doctor.component';
+import { PrescriptionComponent } from './components/prescription/prescription.component';
 
 const routes: Routes = [
   {
     path: 'doctor', component: DoctorComponent,
-    // children: [
-    //   {  },
-    //   {  }
-    // ]
+    children: [
+      { path: '', redirectTo: 'prescription', pathMatch: 'full' },
+      { path: 'prescription', component: PrescriptionComponent },
+    ]
   }
 ];
 

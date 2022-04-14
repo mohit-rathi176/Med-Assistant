@@ -20,5 +20,23 @@ module.exports.mailOptions = {
     from: 'teammedassistant@gmail.com',
     to: '',
     subject: '',
-    text: ''
+    text: '',
+    attachments:[
+      {
+        filename: '',
+        content: ''
+      }
+    ]
 };
+
+module.exports.generateUHID = () => {
+    const alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const digits = '0123456789';
+    UHID = [];
+    UHID[0] = alphabets.charAt(Math.floor(Math.random() * 26));
+    UHID[1] = alphabets.charAt(Math.floor(Math.random() * 26));
+    UHID[2] = digits.charAt(Math.floor(Math.random() * 10));
+    UHID[3] = digits.charAt(Math.floor(Math.random() * 10));
+    uhid = UHID.join('');
+    return uhid;
+}
