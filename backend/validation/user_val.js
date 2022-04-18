@@ -26,9 +26,8 @@ const loginValidation = (user) => {
     const schema = Joi.object({
         usertype: Joi.string()
             .required(),
-        username: Joi.string()
-            .min(4)
-            .max(255)
+        email: Joi.string()
+            .email()
             .required(),
         password: Joi.string()
             .min(5)

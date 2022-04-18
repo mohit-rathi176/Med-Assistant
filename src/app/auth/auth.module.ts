@@ -13,6 +13,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { MatModule } from '../mat/mat.module';
 import { NotificationModule } from '../notification/notification.module';
 import { AuthService } from '../services/auth.service';
+import { AuthGuard } from '../guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AuthService } from '../services/auth.service';
     AuthRoutingModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    AuthGuard
   ],
   exports: [
     AuthComponent,

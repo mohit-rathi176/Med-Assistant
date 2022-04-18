@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MatModule } from '../mat/mat.module';
 import { DoctorRoutingModule } from './doctor-routing.module';
+import { AuthDoctorGuard } from '../guards/auth-doctor.guard';
 import { FormsModule } from '@angular/forms';
 
 import { DoctorComponent } from './components/doctor/doctor.component';
@@ -19,6 +20,9 @@ import { PrescriptionComponent } from './components/prescription/prescription.co
     MatModule,
     DoctorRoutingModule,
     FormsModule
+  ],
+  providers: [
+    AuthDoctorGuard
   ],
   exports: [
     DoctorComponent,

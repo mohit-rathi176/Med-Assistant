@@ -20,6 +20,13 @@ module.exports.mailOptions = {
     from: 'teammedassistant@gmail.com',
     to: '',
     subject: '',
+    text: ''
+};
+
+module.exports.mailOptionsPdf = {
+    from: 'teammedassistant@gmail.com',
+    to: '',
+    subject: '',
     text: '',
     attachments:[
       {

@@ -4,6 +4,7 @@ import { MatTable } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { devOnlyGuardedExpression } from '@angular/compiler';
 import { DoctorService } from 'src/app/services/doctor.service';
+import { NotifierService } from 'src/app/services/notifier.service';
 // import { MatSort } from '@angular/material';
 
 @Component({
@@ -14,12 +15,12 @@ import { DoctorService } from 'src/app/services/doctor.service';
 export class PrescriptionComponent implements OnInit {
 
   @ViewChild(MatTable) prescriptionsTable!: MatTable<any>;
-  // @ViewChild(MatSort) sort: MatSort;
 
   alanBtnInstance: any;
 
   patientFound: boolean = true;
   showPrescription: boolean = true;
+  isLoading: boolean = false;
 
   medicine: string = '';
   quantity: string = '';
@@ -158,7 +159,7 @@ export class PrescriptionComponent implements OnInit {
   }
 
   findPatient = () => {
-    var patientid = {uhid: this.patientuhid};
+    var patientid = { uhid: this.patientuhid };
     this.doctor.findPatient(patientid).subscribe(
       res => {
         console.log(res);
@@ -167,9 +168,15 @@ export class PrescriptionComponent implements OnInit {
         this.patientemail = res.email;
         this.patientgender = res.gender;
         this.patientage = res.age;
+        this.notifierService.showNotification('Patient found', 'OK');
       },
       err => {
         console.log(err);
+        this.patientname = '';
+        this.patientemail = '';
+        this.patientgender = '';
+        this.patientage = '';
+        this.notifierService.showNotification(err, 'OK');
       }
       );
     }
@@ -179,9 +186,10 @@ export class PrescriptionComponent implements OnInit {
     this.showPrescription = false;
   }
 
-  constructor(private doctor: DoctorService, private router: Router) { };
+  constructor(private doctor: DoctorService, private router: Router, private notifierService: NotifierService) { };
 
   sendPrescription = () => {
+    this.isLoading = true;
     var prescriptionData = {
       medicine: this.prescriptionSource,
       parameter: this.parameterSource,
@@ -198,12 +206,15 @@ export class PrescriptionComponent implements OnInit {
         this.patientgender = '';
         this.patientuhid = '';
         this.patientemail = '';
+        this.notifierService.showNotification('Prescription has been sent', 'OK');
         this.showPrescription = true;
         this.patientFound = true;
+        this.isLoading = false;
       },
       err => {
         console.log(err);
-        // this.notifierService.showNotification(err, 'OK');
+        this.notifierService.showNotification('Some error occurred while sending prescription', 'OK');
+        this.isLoading = false;
       }
       );
     }

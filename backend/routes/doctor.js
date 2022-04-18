@@ -4,7 +4,7 @@ const router = require('express').Router();
 const Prescription = require('../models/Prescription');
 const {AgeFromDateString} = require('age-calculator');
 const { func } = require('joi');
-const {transporter, mailOptions} = require('../utility/utility');
+const { transporter, mailOptionsPdf } = require('../utility/utility');
 const patient = require('../models/Patient');
 
 const doc = new pdfkitTable({size: 'A4'});
@@ -109,38 +109,33 @@ router.post('/prescription', async(req, res) => {
       }
 
       //Footer
-      doc.font('Helvetica-Bold').text("M - ",130,720);
-      doc.text('A - ',270,720);
-      doc.text('E - ',410,720);
+      doc.font('Helvetica-Bold').text("M - ", 130, 720);
+      doc.text('A - ', 270, 720);
+      doc.text('E - ', 410, 720);
 
-      doc.font('Helvetica').text('Morning',150,720);
-      doc.text('Afternoon',290,720);
-      doc.text('Evening',430,720)
+      doc.font('Helvetica').text('Morning',150, 720);
+      doc.text('Afternoon', 290, 720);
+      doc.text('Evening', 430, 720)
 
-      doc.rect(60,747,480,25).fillAndStroke('#e0ebff','#000000');
-      doc.image('malogo.png',75,752,{width:15});
+      doc.rect(60,747,480,25).fillAndStroke('#e0ebff', '#000000');
+      doc.image('malogo.png', 75, 752, { width: 15 });
       doc.fillColor('#000000').font('Helvetica-Bold').fontSize(12).text("MedAssistant",97,755);
       doc.fontSize(10).text('--- Get Well Soon ---',430,755);
       doc.end();
 
-
-      // mailOptions.to = ['varshilvshah@gmail.com','mohitrathi176@gmail.com','karanmodasiya24@gmail.com'];
       console.log(req.body.email);
-      mailOptions.to = req.body.email;
-      mailOptions.subject = 'Prescription from MedAssist';
-      mailOptions.text = 'Prescription from Dr. abc';
-      mailOptions.attachments[0].filename = 'Prescription.pdf';
-      mailOptions.attachments[0].content = doc;
+      mailOptionsPdf.to = req.body.email;
+      mailOptionsPdf.subject = 'Prescription from MedAssist';
+      mailOptionsPdf.text = 'Prescription from Dr. abc';
+      mailOptionsPdf.attachments[0].filename = 'Prescription.pdf';
+      mailOptionsPdf.attachments[0].content = doc;
 
-      transporter.sendMail(mailOptions,function(err, info){
+      transporter.sendMail(mailOptionsPdf, function(err, info){
         if(err)
-        throw err;
+          throw err;
         else{
           console.log("Prescription has been sent: " + info.response);
           res.status(201).json({ success: 'Prescription has been sent' });
-          mailOptions.attachments[0].filename = '';
-          mailOptions.attachments[0].content = '';
-          mailOptions.text = '';
         }
       });
     }
@@ -151,6 +146,5 @@ router.post('/prescription', async(req, res) => {
   else
   res.status(400).json({ error: 'Error while sending prescription' });
 });
-
 
 module.exports = router;

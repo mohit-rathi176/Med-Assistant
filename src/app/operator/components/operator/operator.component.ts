@@ -3,24 +3,24 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-doctor',
-  templateUrl: './doctor.component.html',
-  styleUrls: ['./doctor.component.css']
+  selector: 'app-operator',
+  templateUrl: './operator.component.html',
+  styleUrls: ['./operator.component.css']
 })
-export class DoctorComponent implements OnInit {
+export class OperatorComponent implements OnInit {
 
   links = [
     {
-      label: 'Prescription',
-      link: '/doctor/prescription'
+      label: 'Home',
+      link: '/operator/home'
     },
     {
-      label: 'History',
-      link: '/doctor/history'
+      label: 'Appointments',
+      link: '/operator/appointment'
     },
     {
       label: 'Profile',
-      link: '/doctor/profile'
+      link: '/operator/profile'
     }
   ];
   activeLink = this.links[0].label;
@@ -30,7 +30,6 @@ export class DoctorComponent implements OnInit {
     this.auth.logoutUser().subscribe(
       res => {
         console.log(res);
-        // localStorage.setItem('isAuth', 'false');
         localStorage.removeItem('isAuth');
         localStorage.removeItem('usertype');
         this.router.navigate(['auth']);

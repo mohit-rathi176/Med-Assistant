@@ -44,8 +44,8 @@ router.post('/verification', async (req, res) => {
     // set mail options
     mailOptions.to = req.body.email;
     mailOptions.subject = 'One Time Password';
-    mailOptions.text = `Your OTP for registration is: ${otp}` ;
-
+    mailOptions.text = `Your OTP for registration is: ${otp}`;
+    
     // send mail
     transporter.sendMail(mailOptions);
 
@@ -161,20 +161,6 @@ router.post('/register', (req, res) => {
                         console.log(err);
                     }
                 }
-                // try {
-                //     const user = new User({
-                //         usertype: req.body.usertype,
-                //         username: req.body.username,
-                //         email: req.body.email,
-                //         password: hashedPassword
-                //     });
-                //     const result = await user.save();
-                //     console.log(result);
-                //     // res.status(201).json(result);
-                //     res.status(201).json({ success: 'Registered' });
-                // } catch (err) {
-                //     console.log(err);
-                // }
             }
             else {
                 res.status(400).json({ error: 'Incorrect OTP' });
@@ -191,35 +177,108 @@ router.post('/login', async (req, res) => {
     // Validate request, if invalid return 400 Bad Request
     const result = loginValidation(req.body);
     if (result.error)
-    {
-        res.status(400).send(result.error.details[0].message);
-        return;
-    }
+        return res.status(400).send(result.error.details[0].message);
 
     // Check if the user exists in the database
-    const user = await User.findOne({ username: req.body.username });
-    if (!user)
+    let patient;
+    let doctor;
+    let operator;
+    if (req.body.usertype == 'patient')
     {
-        res.status(400).json({ error: 'Invalid username' });
-        return;
+        patient = await Patient.findOne({ email: req.body.email });
+        if (!patient)
+            return res.status(400).json({ error: 'Email does not exist' });
+    }
+    else if (req.body.usertype == 'doctor')
+    {
+        doctor = await Doctor.findOne({ email: req.body.email });
+        if (!doctor)
+            return res.status(400).json({ error: 'Email does not exist' });
+    }
+    else if (req.body.usertype == 'operator')
+    {
+        operator = await Operator.findOne({ email: req.body.email });
+        if (!operator)
+            return res.status(400).json({ error: 'Email does not exist' });
     }
 
-    // const user = await User.findOne({ email: req.body.email });
-    // if (!user)
-    // {
-    //     res.status(400).send('Email does not exist.');
-    //     return;
-    // }
-
-    const pass = await bcrypt.compare(req.body.password, user.password);
-    if (!pass)
+    // Check if password is correct
+    if (req.body.usertype == 'patient')
     {
-        res.status(400).json({ error: 'Invalid password' });
-        return;
+        const pass = await bcrypt.compare(req.body.password, patient.password);
+        if (!pass)
+            return res.status(400).json({ error: 'Invalid password' });
+    }
+    else if (req.body.usertype == 'doctor')
+    {
+        const pass = await bcrypt.compare(req.body.password, doctor.password);
+        if (!pass)
+            return res.status(400).json({ error: 'Invalid password' });
+    }
+    else if (req.body.usertype == 'operator')
+    {
+        const pass = await bcrypt.compare(req.body.password, operator.password);
+        if (!pass)
+            return res.status(400).json({ error: 'Invalid password' });
     }
 
     // If user details are correct
+    if (req.body.usertype == 'patient')
+    {
+        req.session.user = patient;
+        req.session.usertype = 'patient';
+    }
+    else if (req.body.usertype == 'doctor')
+    {
+        req.session.user = doctor;
+        req.session.usertype = 'doctor';
+    }
+    else if (req.body.usertype == 'operator')
+    {
+        req.session.user = operator;
+        req.session.usertype = 'operator';
+    }
+    req.session.isAuth = true;
+    // console.log(req.session.id);
+    // console.log(req.session);
+    // console.log(req.session.cookie);
     res.status(200).json({ success: 'Logged In' });
+});
+
+router.get('/isauthenticated/patient', (req, res) => {
+    if (req.session.isAuth && req.session.usertype == 'patient')
+        res.status(200).json({ auth: true });
+    else
+        res.status(403).json({ auth: false });
+    });
+    
+router.get('/isauthenticated/doctor', (req, res) => {
+    if (req.session.isAuth && req.session.usertype == 'doctor')
+    {
+        res.status(200).json({ auth: true });
+        console.log('true');
+    }
+    else
+    {
+        res.status(403).json({ auth: false });
+        console.log('false');
+    }
+});
+        
+router.get('/isauthenticated/operator', (req, res) => {
+    if (req.session.isAuth && req.session.usertype == 'operator')
+        res.status(200).json({ auth: true });
+    else
+        res.status(403).json({ auth: false });
+});
+
+router.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err)
+            res.status(500).json({ err: 'Could not log out' });
+        else
+            res.status(200).json({ success: 'Logged out successfully' });
+    });
 });
 
 module.exports = router;

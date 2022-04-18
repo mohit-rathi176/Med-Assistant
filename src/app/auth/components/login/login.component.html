@@ -17,9 +17,9 @@
                     <mat-error *ngIf="login.controls['usertype'].invalid">{{getUsertypeErrorMessage()}}</mat-error>
                 </mat-form-field>
                 <mat-form-field class="form-field input-full-width" appearance="outline">
-                    <mat-label>Username</mat-label>
-                    <input type="text" name="username" formControlName="username" matInput>
-                    <mat-error *ngIf="login.controls['username'].invalid">{{getUsernameErrorMessage()}}</mat-error>
+                    <mat-label>Email</mat-label>
+                    <input type="text" name="email" formControlName="email" matInput>
+                    <mat-error *ngIf="login.controls['email'].invalid">{{getEmailErrorMessage()}}</mat-error>
                 </mat-form-field>
                 <mat-form-field class="form-field input-full-width" appearance="outline">
                     <mat-label>Password</mat-label>
