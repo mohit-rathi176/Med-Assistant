@@ -45,7 +45,7 @@ router.post('/verification', async (req, res) => {
     mailOptions.to = req.body.email;
     mailOptions.subject = 'One Time Password';
     mailOptions.text = `Your OTP for registration is: ${otp}`;
-    
+
     // send mail
     transporter.sendMail(mailOptions);
 
@@ -175,9 +175,9 @@ router.post('/register', (req, res) => {
 
 router.post('/login', async (req, res) => {
     // Validate request, if invalid return 400 Bad Request
-    const result = loginValidation(req.body);
-    if (result.error)
-        return res.status(400).send(result.error.details[0].message);
+    // const result = loginValidation(req.body);
+    // if (result.error)
+    //     return res.status(400).send(result.error.details[0].message);
 
     // Check if the user exists in the database
     let patient;
@@ -185,6 +185,7 @@ router.post('/login', async (req, res) => {
     let operator;
     if (req.body.usertype == 'patient')
     {
+        console.log(req.body);
         patient = await Patient.findOne({ email: req.body.email });
         if (!patient)
             return res.status(400).json({ error: 'Email does not exist' });
@@ -251,7 +252,7 @@ router.get('/isauthenticated/patient', (req, res) => {
     else
         res.status(403).json({ auth: false });
     });
-    
+
 router.get('/isauthenticated/doctor', (req, res) => {
     if (req.session.isAuth && req.session.usertype == 'doctor')
     {
@@ -264,7 +265,7 @@ router.get('/isauthenticated/doctor', (req, res) => {
         console.log('false');
     }
 });
-        
+
 router.get('/isauthenticated/operator', (req, res) => {
     if (req.session.isAuth && req.session.usertype == 'operator')
         res.status(200).json({ auth: true });

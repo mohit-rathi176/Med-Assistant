@@ -6,7 +6,8 @@ import { PatientComponent } from './components/patient/patient.component';
 
 const routes: Routes = [
   {
-    path: 'patient', component: PatientComponent, canActivate: [AuthPatientGuard],
+    path: 'patient', component: PatientComponent, 
+    canActivate: [AuthPatientGuard],
     children: [
       { path: '', redirectTo: 'history', pathMatch: 'full' },
       { path: 'history', component: PatientHistoryComponent },

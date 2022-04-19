@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from './auth/auth.module';
 import { DoctorModule } from './doctor/doctor.module';
+import { PatientModule } from './patient/patient.module';
+import { OperatorModule } from './operator/operator.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { DoctorModule } from './doctor/doctor.module';
     BrowserAnimationsModule,
     AuthModule,
     DoctorModule,
+    PatientModule,
+    OperatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

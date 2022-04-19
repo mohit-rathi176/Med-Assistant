@@ -20,6 +20,7 @@ const store = new MongoDBSession({
 // Import Routes
 const authRoute = require('./routes/auth');
 const doctorRoute = require('./routes/doctor');
+const patientRoute = require('./routes/patient');
 
 // Middlewares
 app.use(session({
@@ -39,6 +40,7 @@ app.use(cors({
 app.use(express.json());
 app.use('/api/user', authRoute);
 app.use('/api/doctor', doctorRoute);
+app.use('/api/patient', patientRoute);
 
 // Home route
 app.get('/', (req, res) => {

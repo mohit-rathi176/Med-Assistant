@@ -12,6 +12,7 @@ import { NotifierService } from 'src/app/services/notifier.service';
   templateUrl: './prescription.component.html',
   styleUrls: ['./prescription.component.css']
 })
+
 export class PrescriptionComponent implements OnInit {
 
   @ViewChild(MatTable) prescriptionsTable!: MatTable<any>;
@@ -194,7 +195,8 @@ export class PrescriptionComponent implements OnInit {
       medicine: this.prescriptionSource,
       parameter: this.parameterSource,
       email: this.patientemail,
-      name: this.patientname
+      name: this.patientname,
+      uhid: this.patientuhid
     };
     // this.prescriptionData.medicine = this.prescriptionSource;
     // this.prescriptionData.parameter = this.parameterSource;

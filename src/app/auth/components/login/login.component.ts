@@ -57,11 +57,13 @@ export class LoginComponent implements OnInit {
         if (this.login.controls['usertype'].value == 'patient')
         {
           localStorage.setItem('usertype', 'patient');
+          localStorage.setItem('ptemail', this.login.controls['email'].value);
           this.router.navigate(['patient']);
         }
         else if (this.login.controls['usertype'].value == 'doctor')
         {
           localStorage.setItem('usertype', 'doctor');
+          localStorage.setItem('dremail', this.login.controls['email'].value);
           this.router.navigate(['doctor']);
         }
         else if (this.login.controls['usertype'].value == 'operator')

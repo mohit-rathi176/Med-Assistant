@@ -3,4 +3,5 @@ export interface Prescription {
   parameter: [],
   email: String,
   name: String,
+  uhid: String
 }

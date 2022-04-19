@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { PatientService } from 'src/app/services/patient.service';
 
 @Component({
   selector: 'app-patient',
@@ -43,7 +44,7 @@ export class PatientComponent implements OnInit {
     );;
   }
 
-  constructor(private router: Router, private auth: AuthService) { }
+  constructor(private router: Router, private auth: AuthService, private patient: PatientService) { }
 
   ngOnInit(): void {
   }

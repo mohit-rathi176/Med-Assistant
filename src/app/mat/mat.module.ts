@@ -15,6 +15,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table'
 
 const MY_FORMATS = {
   parse: {
@@ -44,7 +46,8 @@ const MY_FORMATS = {
     MatIconModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
   ],
   exports: [
     MatToolbarModule,
@@ -59,7 +62,8 @@ const MY_FORMATS = {
     MatIconModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
   ],
   providers: [
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }

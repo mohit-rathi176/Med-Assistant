@@ -19,6 +19,10 @@ const prescriptionSchema = mongoose.Schema({
     parameter: {
         type: [],
         required: true
+    },
+    date: {
+      type: Date,
+      default: Date.now
     }
 });
 

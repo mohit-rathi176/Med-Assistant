@@ -6,6 +6,7 @@ const {AgeFromDateString} = require('age-calculator');
 const { func } = require('joi');
 const { transporter, mailOptionsPdf } = require('../utility/utility');
 const patient = require('../models/Patient');
+const { privateDecrypt } = require('crypto');
 
 const doc = new pdfkitTable({size: 'A4'});
 var today = new Date();
@@ -47,10 +48,11 @@ router.post('/prescription', async(req, res) => {
   if(req.body!=null){
     const medicines= req.body.medicine;
     const parameters= req.body.parameter;
+    var ptid = req.body.uhid;
     //var patient = req.cookies['patient'];
     try {
       const prescription = new Prescription({
-          patientId: 2,
+          patientId: ptid,
           doctorId: 2,
           medicine: medicines,
           parameter: parameters

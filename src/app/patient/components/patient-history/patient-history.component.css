@@ -1,0 +1,9 @@
+.patient-history-container {
+  padding: 2rem;
+  width: 80vw;
+  margin: 0 auto;
+}
+
+table {
+  width: 100%;
+}
