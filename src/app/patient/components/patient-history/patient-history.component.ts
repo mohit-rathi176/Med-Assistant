@@ -18,11 +18,22 @@ export class PatientHistoryComponent implements OnInit {
   @ViewChild(MatTable) patientHistory!: MatTable<any>;
   // @ViewChild('paginator') paginator!: MatPaginator;
 
+  prescriptionStyle = 'patient-history-container';
+
   prescription: any = [];
 
   patientId!: String;
   patientName!: String;
 
+  prescriptionColumns: string[] = ['position', 'medicine', 'quantity', 'dosage'];
+
+  prescriptionSource: any = [];
+
+  parameterColumns: string[] = ['parameter', 'value'];
+
+  parameterSource: any = [];
+
+  show: boolean = false;
   // prescriptionData!: MatTableDataSource<any>;
 
   length = 100;
@@ -59,7 +70,8 @@ export class PatientHistoryComponent implements OnInit {
           date += dateArray[0];
           let myRow = {
             date: date,
-            doctor: 'abc'
+            doctor: 'abc',
+            position: this.dataSource.length
           };
           console.log(myRow);
           this.dataSource.push(myRow);
@@ -91,6 +103,23 @@ export class PatientHistoryComponent implements OnInit {
     );
   }
 
+  showPrescription(position: number){
+    console.log("Position: "+position)
+    for( let i=0; i<this.dataSource.length; i++){
+      if(position == this.dataSource[i].position){
+        this.prescriptionSource = this.prescription[i].medicine;
+        this.parameterSource = this.prescription[i].parameter;
+        console.log(this.prescriptionSource);
+        this.show = true;
+      }
+    }
+    this.prescriptionStyle = 'patient-history-blurred';
+  }
+
+  closePrescription(){
+    this.show = false;
+    this.prescriptionStyle = 'patient-history-container';
+  }
 
   ngOnInit(): void {
     this.getPatient();

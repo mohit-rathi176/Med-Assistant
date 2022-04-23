@@ -212,6 +212,8 @@ export class PrescriptionComponent implements OnInit {
         this.showPrescription = true;
         this.patientFound = true;
         this.isLoading = false;
+        this.prescriptionSource = [];
+        this.parameterSource = [];
       },
       err => {
         console.log(err);
