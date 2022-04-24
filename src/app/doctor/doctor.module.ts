@@ -9,11 +9,13 @@ import { FormsModule } from '@angular/forms';
 import { DoctorComponent } from './components/doctor/doctor.component';
 // import { DoctorNavComponent } from './components/doctor-nav/doctor-nav.component';
 import { PrescriptionComponent } from './components/prescription/prescription.component';
+import { DoctorProfileComponent } from './components/doctor-profile/doctor-profile.component';
 
 @NgModule({
   declarations: [
     DoctorComponent,
-    PrescriptionComponent
+    PrescriptionComponent,
+    DoctorProfileComponent
   ],
   imports: [
     CommonModule,

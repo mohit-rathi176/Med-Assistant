@@ -225,6 +225,15 @@ export class PrescriptionComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.doctor.doctorDetails({ emailId: localStorage.getItem('dremail')}).subscribe(
+      res=>{
+        localStorage.setItem('drDetails', JSON.stringify(res));
+        console.log(res);
+      },
+      err=>{
+        console.log(err);
+      }
+    );
   }
 
 }

@@ -55,7 +55,7 @@ export class PatientHistoryComponent implements OnInit {
   constructor(private patient: PatientService, private router: Router) { };
 
   getPrescription(){
-    this.patient.getPrescription( {ptid: localStorage.getItem('ptid')} ).subscribe(
+    this.patient.getPrescription( {ptid: this.patientId} ).subscribe(
       res => {
         console.log(res);
         this.prescription = res;
@@ -93,7 +93,8 @@ export class PatientHistoryComponent implements OnInit {
       req => {
         this.patientId = req.uhid;
         this.patientName = req.name;
-        localStorage.setItem('ptid', req.uhid);
+        // localStorage.setItem('ptid', req.uhid);
+        localStorage.setItem('patientDetails', JSON.stringify(req));
         console.log(this.patientId);
         this.getPrescription();
       },
@@ -119,6 +120,9 @@ export class PatientHistoryComponent implements OnInit {
   closePrescription(){
     this.show = false;
     this.prescriptionStyle = 'patient-history-container';
+
+      // var pt = JSON.parse( localStorage.getItem('patientDetails') || '{}' );
+      // console.log(pt);
   }
 
   ngOnInit(): void {

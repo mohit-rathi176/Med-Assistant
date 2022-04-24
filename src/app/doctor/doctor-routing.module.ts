@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthDoctorGuard } from '../guards/auth-doctor.guard';
 import { DoctorComponent } from './components/doctor/doctor.component';
 import { PrescriptionComponent } from './components/prescription/prescription.component';
+import { DoctorProfileComponent } from './components/doctor-profile/doctor-profile.component';
 
 const routes: Routes = [
   {
@@ -10,6 +11,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'prescription', pathMatch: 'full' },
       { path: 'prescription', component: PrescriptionComponent },
+      { path: 'profile', component: DoctorProfileComponent},
     ]
   }
 ];

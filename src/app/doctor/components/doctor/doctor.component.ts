@@ -9,6 +9,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class DoctorComponent implements OnInit {
 
+  name = JSON.parse( localStorage.getItem('drDetails') || '{}' ).username;
+
   links = [
     {
       label: 'Prescription',

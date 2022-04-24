@@ -7,11 +7,13 @@ import { AuthPatientGuard } from '../guards/auth-patient.guard';
 
 import { MatModule } from '../mat/mat.module';
 import { PatientHistoryComponent } from './components/patient-history/patient-history.component';
+import { PatientProfileComponent } from './components/patient-profile/patient-profile.component';
 
 @NgModule({
   declarations: [
     PatientComponent,
-    PatientHistoryComponent
+    PatientHistoryComponent,
+    PatientProfileComponent
   ],
   imports: [
     CommonModule,

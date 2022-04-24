@@ -2,6 +2,7 @@
 const pdfkitTable = require('pdfkit-table');
 const router = require('express').Router();
 const Prescription = require('../models/Prescription');
+const Doctor = require('../models/Doctor');
 const {AgeFromDateString} = require('age-calculator');
 const { func } = require('joi');
 const { transporter, mailOptionsPdf } = require('../utility/utility');
@@ -12,6 +13,20 @@ const doc = new pdfkitTable({size: 'A4'});
 var today = new Date();
 var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
 
+router.post('/doctDetails', function(req, res){
+  console.log(req.body.emailId);
+  Doctor.findOne( {email: req.body.emailId}, function(err, data){
+    if(data){
+      res.status(201).json(data);
+      console.log('doctor: '+data);
+    }
+    else{
+      res.status(401).json(err);
+      console.log(err);
+    }
+  });
+});
+
 router.post('/patientid', function(req, res){
   var patientid = req.body.uhid;
   console.log(patientid);
@@ -20,16 +35,8 @@ router.post('/patientid', function(req, res){
       console.log(doc);
       var dob1 = doc.dob.toString().split("-");
       var date1 = dob1[2]+'/'+dob1[1]+'/'+dob1[0];
-      // console.log(doc.dob.toString());
-      // console.log(dob1);
       var age = new AgeFromDateString(date1).age;
       console.log(age);
-      // var patient = {
-      //   patientname: doc.username,
-      //   patientemail: doc.email,
-      //   patientid: doc.uhid
-      // };
-      // res.cookie('patient',patient);
       res.status(201).json({
         uhid: doc.uhid,
         username: doc.username,

@@ -11,7 +11,7 @@ import { OperatorModule } from './operator/operator.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

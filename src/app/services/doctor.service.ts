@@ -30,4 +30,13 @@ export class DoctorService {
         })
       );
   }
+
+  doctorDetails(emailId: any): Observable<any>{
+    return this.http.post<patientId>(`${this.baseUrl}/doctor/doctDetails`, emailId)
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          return throwError(() => err.error.error);
+        })
+      );
+  }
 }

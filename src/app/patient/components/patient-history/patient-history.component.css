@@ -1,7 +1,7 @@
 .patient-history-parent-container{
   overflow: hidden;
-  height: 87.5vh;
-  
+  height: 84.3vh;
+  position: relative;
 }
 
 .patient-history-container {
@@ -47,7 +47,7 @@ table {
   flex-direction: column;
   box-shadow: 0px 0px 2px 2px black;
   border-radius: 10px;
-  padding-bottom: 40px;
+  padding-bottom: 20px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -55,13 +55,13 @@ table {
 }
 
 .mat-card .closebtn{
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   align-self: flex-end;
 }
 
 .parameter-table{
   max-width: 40%;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .medicine-table{

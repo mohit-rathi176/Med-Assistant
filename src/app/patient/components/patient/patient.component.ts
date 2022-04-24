@@ -10,6 +10,8 @@ import { PatientService } from 'src/app/services/patient.service';
 })
 export class PatientComponent implements OnInit {
 
+  name = JSON.parse( localStorage.getItem('patientDetails') || '{}' ).username;
+
   links = [
     {
       label: 'History',
